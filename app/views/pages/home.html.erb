@@ -1,0 +1,50 @@
+<% if current_user %>
+   <p> Hello <%= current_user.email %>!</p>
+   <p>
+       You have successfully authenticated with your Devise account.
+       You are now ready to interact with this application.
+    </p>
+
+<h1>Posts</h1>
+
+
+
+<% @posts.each do |post| %>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col"> </th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <h2><%= post.title %></h2></td>
+      <td> <h3><%= post.content %></h3></td>
+      <td> <button type="button" class="btn btn-info">
+             <%= link_to 'Show', post %>
+           </button></td>
+      <% end %>
+
+    </tr>
+  </tbody>
+</table>
+ 
+
+<button type="button" class="btn btn-info"><%= link_to 'New Post', new_post_path %></button>
+<br/>
+
+
+    <%= link_to "Sign out", destroy_user_session_path, method: :delete, data: {turbo_method: :delete} %>
+    <br/>
+    <%= link_to "Edit registration", edit_user_registration_path %>
+<% else %>
+    <p> You are not signed in. </p>
+    <%= link_to "Sign Up!", new_user_registration_path %>
+    <br/>
+    <%= link_to "Login", new_user_session_path %>
+<% end %>
